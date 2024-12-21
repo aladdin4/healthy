@@ -1,0 +1,114 @@
+<main class="main" id="top" #navbar>
+  <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault" style="border-right: 1px solid #cbd0dd;">
+    <div class="collapse navbar-collapse justify-content-between">
+
+      <div class="navbar-logo" style="display: flex">
+        <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse"
+                aria-expanded="false" aria-label="Toggle Navigation" >
+
+          <svg class="svg-inline--fa fa-grip-lines text-body fs-5 toggle-line" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="grip-lines" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M416 288C433.7 288 448 302.3 448 320C448 337.7 433.7 352 416 352H32C14.33 352 0 337.7 0 320C0 302.3 14.33 288 32 288H416zM416 160C433.7 160 448 174.3 448 192C448 209.7 433.7 224 416 224H32C14.33 224 0 209.7 0 192C0 174.3 14.33 160 32 160H416z"></path></svg>
+        </button>
+        <a class="navbar-brand me-1 me-sm-3" href="products">
+          <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center">
+              <img src="../../../assets/logo.png" alt="logo" width="200" />
+            </div>
+          </div>
+        </a>
+      </div>
+      <ul class="navbar-nav navbar-nav-icons flex-row">
+        <!--  *ngIf="user.id" -->
+        <li class="nav-item dropdown">
+          <div class="avatar avatar-l fs-5 fw-bold setting-btn" (click)="togglePanel(userSignOut)">
+            <!--{{user.initials}}-->   AA
+          </div>
+          <div class="navbar-collapsed-container user d-none" (mouseleave)="hidePanel(userSignOut)" #userSignOut>
+            <ul class="navbar-nav flex-column navbar-collapsed-ul">
+              <h6 class="nav-menu-label fw-bold user-title">
+              <!--{{user.fullName}}-->  Test Test
+              </h6>
+              <li class="settings-li px-3" [routerLink]="['/settings']">
+                <a class="nav-link" style="padding-left: 0px">
+                  <div style="display: flex; align-items: stretch;">
+                    <svg width="16px" height="16px"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="fw-bold" style="color: #141824; padding-left: 10px">Users</span>
+                  </div>
+                </a>
+              </li>
+              <div class="px-3 py-2" style="border-top: 1px solid #e3e6ed; ">
+                <a class="btn btn-secondary-mod w-100" style="display: flex;justify-content: center; align-items: center;" (click)="logOut()">
+                  <svg width="16px" height="16px"
+                       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out me-2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                  </svg>Sign out
+                </a>
+              </div>
+              <div class="px-3" style="border-top: 1px solid #e3e6ed; padding-top: 8px">
+                <span class="fw-bold" style="color: #141824; padding-left: 2px">V. 3.5</span>
+              </div>
+
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+ 
+    <nav class="navbar navbar-vertical navbar-expand-lg navbar-vertical-collapsed" *ngIf="showSidebar" >
+      <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+        <div class="navbar-vertical-content">
+          <!-- Side Menu Items Container -->
+          <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+            <!-- Settings Section -->
+            <li class="nav-item">
+              <!-- parent pages-->
+              <div class="nav-item-wrapper" >
+                <!-- [routerLink]="['/settings']"  -->
+                <a class="nav-link nav-link-header dropdown-indicator label-1" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home" (click)="toggleSettings()" routerLinkActive="active" [class.active]="isActive('settings')">
+                  <div class="d-flex align-items-center">
+                    <div class="dropdown-indicator-icon dropdown-indicator-icon-container">
+                      <!--<svg *ngIf="jobsService.navBarStates.settingsExpanded" style=" transform: rotate(270deg)" class="text-body dropdown-indicator-icon " aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"></path></svg>-->
+                      <!--<svg *ngIf="!jobsService.navBarStates.settingsExpanded" class="svg-inline--fa fa-caret-right text-body fs-5 dropdown-indicator-icon fa-caret-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-right" role="img" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M118.6 105.4l128 127.1C252.9 239.6 256 247.8 256 255.1s-3.125 16.38-9.375 22.63l-128 127.1c-9.156 9.156-22.91 11.9-34.88 6.943S64 396.9 64 383.1V128c0-12.94 7.781-24.62 19.75-29.58S109.5 96.23 118.6 105.4z"></path></svg>-->
+                    </div>
+                    <span class="nav-link-icon">
+                      <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </span><span class="nav-link-text nav-link-text-header">Settings</span>
+                  </div>
+                </a>
+                <div class="parent-wrapper label-1 collapsed" #settingswrapper>
+                  <ul class="nav collapse parent show" data-bs-parent="#navbarVerticalCollapse" id="nv-home">
+                    <li class="nav-item">
+                      <a class="nav-link" data-bs-toggle="" aria-expanded="false" [routerLink]="['/settings/users-managment']"
+                         routerLinkActive="active" >
+                        <div class="d-flex align-items-center">
+                          <span class="nav-link-text nav-item-text">Users Management</span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+         </div>
+        
+      </nav>
+
+
+    </main>
+
+   
+
+  
+
