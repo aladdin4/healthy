@@ -9,6 +9,7 @@ import { Title } from '@angular/platform-browser';
 import { ProductsService } from '../../core/services/products.service';
 import { Product, ProductCategory } from '../../core/models/product';
 import { MainService } from '../../core/services/main.service';
+import { ToastrDisplayService } from '../../core/services/toastr.service';
 
 @Component({
   selector: 'app-products',
@@ -20,10 +21,14 @@ export class ProductsComponent {
     private _liveAnnouncer: LiveAnnouncer,
     private productsService: ProductsService,
     private mainService: MainService,
+    private toasterDisplayService: ToastrDisplayService  ,
     private title: Title,
   ) { }
   productsSubscription: Subscription = new Subscription();
+ 
+
   products: ProductCategory[] = [];
+ 
   categories: string[] = [];
   activeCategory: string = '';
   ngOnInit(): void {
@@ -36,10 +41,23 @@ export class ProductsComponent {
       this.activeCategory = this.categories[0];
     });
     this.productsService.getProducts();
-    this.title.setTitle('Products');
+
+   
+
+    this.title.setTitle('Healthy Products');
   }
   setActiveCategory(category: string) {
     this.activeCategory = category;
+  }
+
+  addToMeal(product: Product) {
+    console.log(product);
+    this.toasterDisplayService.showSuccess('Product Added To Meal Successfully')
+  }
+  addToCart(product: Product) {
+    console.log(product);
+    this.productsService.addToCart(product);
+    this.toasterDisplayService.showSuccess('Product Added To Cart Successfully')
   }
   ngOnDestroy(): void {
     this.productsSubscription.unsubscribe();

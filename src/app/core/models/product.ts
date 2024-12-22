@@ -7,6 +7,7 @@ export interface Product {
   price: number;
   category: string;
   img_url?: string;
+  quantity?: number;
 }
 
 export interface ProductCategory {

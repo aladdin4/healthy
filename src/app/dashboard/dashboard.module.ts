@@ -9,10 +9,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DashboardComponent } from './dashboard.component';
 import { dashboardRouterModule } from './dashboard.router.module';
 import { ProductsComponent } from './products/products.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
+    CheckoutComponent,
+    CartComponent,
     ProductsComponent
 
   ],

@@ -2,6 +2,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Subscription, interval, take } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from '../../core/services/main.service';
+import { Product } from '../../core/models/product';
+import { ProductsService } from '../../core/services/products.service';
+import { UsersService } from '../../core/services/users.service';
+import { User } from '../../core/models/user';
 
 
 @Component({
@@ -10,74 +14,51 @@ import { MainService } from '../../core/services/main.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
-   navbarVisibleSubscription: Subscription = new Subscription();
-  permissions: string = '';
-
-  retryCount = 0;
-  maxRetries = 3;
-
-  //solutions: SolutionDTO[] = [];
-  logsSubscription: Subscription = new Subscription();
   constructor (
     private router: Router,
     private el: ElementRef,
-    private mainService: MainService
+    private mainService: MainService,
+    private productsService: ProductsService,
+    private usersService: UsersService
   ) { }
 
+  navbarVisibleSubscription: Subscription = new Subscription();
+  cartSubscription: Subscription = new Subscription();
+  cartProducts: Product[] = [];
+  cartItems: number = 0;
+
+  usersSubscription: Subscription = new Subscription();
+  user: User = new User();
   showSidebar = true;
   ngOnInit(): void {
 
     this.navbarVisibleSubscription = this.mainService.NavbarVisibleSubject.subscribe((isVisible: boolean) => {
       this.showSidebar = isVisible;
     });
-
-    //this.jobsSubscription = this.jobsService.navBarExpandedSubject.subscribe((data: any) => {
-    //  this.navbarExpanded = data;
-    //  this.getUser();
-    //});
-
-    //this.userSubscription = this.userService.currentUserSubject.subscribe((data: any) => {
-    //  this.user = data;
-    //  if (!this.user.id && !this.user.loggingOut) {
-    //    this.userService.getCurrentUser('updateCurrentUser');
-    //  }
-    //  if (this.user.permissions)
-    //    this.permissions = this.user.permissions.join(',');
-    //})
-
-    //this.logsSubscription = this.logsService.logStoragesSubject.subscribe((data: any) => {
-    //  if (!data.length && this.retryCount < this.maxRetries) {
-    //    this.retryCount++;
-    //    this.logsService.getLogStorages();
-    //  }
-    //  else {
-    //    this.solutions = data;
-
-    //    setTimeout(() => {
-    //      this.setSolutionState();
-    //    }, 0);
-    //  }
-    //});
+    this.cartSubscription = this.productsService.cartSubject.subscribe((cartProducts) => {
+      this.cartProducts = cartProducts;
+      this.cartItems = this.cartProducts.reduce((sum, item) => sum + (item.quantity || 0), 0);
+    });
+    this.productsService.getCartItems();
+    this.getUser();
   }
 
   ngOnDestroy(): void {
-    //this.jobsSubscription.unsubscribe();
-    //this.userSubscription.unsubscribe();
-    //this.logsSubscription.unsubscribe();
+    this.navbarVisibleSubscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
+    this.usersSubscription.unsubscribe();
   }
   getUser() {
-    interval(1000).pipe(take(4)).subscribe((val) => {
-      let userLocalStorage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || "") : "";
-      //this.user = new User(userLocalStorage)
-      //if (val >= 3) {
-      //  if (!userLocalStorage.id) {
-      //    this.router.navigate(['/login']);
-      //  } else {
-      //    this.idleService.start();
-      //  }
-      //}
-    });
+    this.usersService.getCurrentUser();
+    let userLocalStorage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || "") : new User();
+    this.user = userLocalStorage;
+    console.log('userLocalStorage', userLocalStorage)
+    if (!this.user.id) {
+      this.usersSubscription = this.usersService.currentUserSubject.subscribe((user) => {
+        this.user = user;
+         console.log('subject user', user)
+       });
+    }
   }
 
   navbarExpanded = true;
