@@ -34,7 +34,6 @@ export class ProductsService {
       this.cartSubject.next([...this.cartSubject.getValue(), product]);
     }
     this.saveCartToLocalStorage();
-    console.log(this.cartSubject.getValue())
   }
   
   removeFromCart(product: Product) {
@@ -57,7 +56,6 @@ export class ProductsService {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
   getProducts() {
-    console.log('called?')
     //this.http
     //  .get<Product[]>(environment.serviceBase + '/api/Products')
     //  .subscribe((data) => this.productsSubject.next(data));

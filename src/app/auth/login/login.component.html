@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row flex-center min-vh-100">
     <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3">
-      <a class="d-flex flex-center text-decoration-none mb-4">
+      <a class="d-flex flex-center text-decoration-none mb-4" href="products">
         <div class="d-flex align-items-center fw-bolder fs-5 d-inline-block">
           <img src="../../../assets/logo.png" alt="logo" width="240" style="margin-bottom: 1.5rem !important" />
         </div>
@@ -10,7 +10,7 @@
         <h3 class="main-title">Sign In</h3>
         <p class="sub-title">Get access to your account</p>
       </div>
-      <form [formGroup]="logInForm" (submit)="logIn()">
+      <form [formGroup]="logInForm">
         <div class="mb-3 text-start">
           <label class="form-label" for="email">Email address</label>
           <div class="form-icon-container">

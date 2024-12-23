@@ -51,11 +51,9 @@ export class ProductsComponent {
   }
 
   addToMeal(product: Product) {
-    console.log(product);
     this.toasterDisplayService.showSuccess('Product Added To Meal Successfully')
   }
   addToCart(product: Product) {
-    console.log(product);
     this.productsService.addToCart(product);
     this.toasterDisplayService.showSuccess('Product Added To Cart Successfully')
   }

@@ -6,12 +6,16 @@ export class User {
   id: number;
   fullName: string;
   initials: string = "";
+  address: string;
   constructor (
     email: string ="",
     role: string = "",
     firstName: string = "",
     lastName: string = "",
-    id: number = 0) {
+    id: number = 0,
+    address: string = ""
+  ) {
+
     this.email = email;
     this.role = role;
     this.firstName = firstName;
@@ -20,7 +24,8 @@ export class User {
     this.fullName = `${firstName} ${lastName}`;
     if (firstName && lastName) {
       this.initials = `${firstName.charAt(0)}${lastName.charAt(0)}`;
-    }
+    };
+    this.address = address;
 
   }
 }

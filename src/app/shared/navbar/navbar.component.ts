@@ -50,17 +50,22 @@ export class NavbarComponent {
   }
   getUser() {
     this.usersService.getCurrentUser();
-    let userLocalStorage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || "") : new User();
+    let userLocalStorage = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser') || "") : new User();
     this.user = userLocalStorage;
-    console.log('userLocalStorage', userLocalStorage)
     if (!this.user.id) {
       this.usersSubscription = this.usersService.currentUserSubject.subscribe((user) => {
         this.user = user;
-         console.log('subject user', user)
        });
     }
   }
+  logOut() {
+    this.usersService.logOut();
+    this.router.navigate(['/login']);
+  }
 
+
+
+  //////////////////////////////////////
   navbarExpanded = true;
   sidebarMenus = {
     jobMenuExpanded: true,
@@ -299,7 +304,5 @@ export class NavbarComponent {
   hidePanel(event: any) {
     event.classList?.add('d-none');
   }
-  logOut() {
-   // this.authService.logOut();
-  }
+  
 }

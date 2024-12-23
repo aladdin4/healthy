@@ -94,6 +94,5 @@ const dummyProducts: ProductCategory[] = [
 
 
 export function getDummyProducts(): ProductCategory[] {
-  console.log('returning dummy products', );
   return dummyProducts;
 }
