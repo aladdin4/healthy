@@ -4,17 +4,17 @@
 <div mat-dialog-content>
   <form [formGroup]="addEditUserForm" (submit)="saveUser()">
     <div class="mb-3">
-      <label class="form-label" for="firstName">First Name* </label>
-      <input class="form-control" type="text" formControlName="firstName" placeholder="Enter User's First Name" />
-      <mat-error *ngIf="addEditUserForm.get('firstName')?.invalid && addEditUserForm.get('firstName')?.touched">
+      <label class="form-label" for="first_name">First Name* </label>
+      <input class="form-control" type="text" formControlName="first_name" placeholder="Enter User's First Name" />
+      <mat-error *ngIf="addEditUserForm.get('first_name')?.invalid && addEditUserForm.get('first_name')?.touched">
         Please Enter Valid User Name
       </mat-error>
     </div>
 
     <div class="mb-3">
-      <label class="form-label" for="lastName">Last Name* </label>
-      <input class="form-control" type="text" formControlName="lastName" placeholder="Enter User's Last Name" />
-      <mat-error *ngIf="addEditUserForm.get('lastName')?.invalid && addEditUserForm.get('lastName')?.touched">
+      <label class="form-label" for="last_name">Last Name* </label>
+      <input class="form-control" type="text" formControlName="last_name" placeholder="Enter User's Last Name" />
+      <mat-error *ngIf="addEditUserForm.get('last_name')?.invalid && addEditUserForm.get('last_name')?.touched">
         Please Enter Valid User Name
       </mat-error>
     </div>
@@ -58,7 +58,7 @@
   <button style="margin: 4px" class="modal-secondary-btn" (click)="onNoClick()">
     Close
   </button>
-  <button style="margin: 4px" class="modal-primary-btn" (click)="saveUser()" [disabled]="addEditUserForm.get('firstName')?.invalid || addEditUserForm.get('lastName')?.invalid || addEditUserForm.get('email')?.invalid || addEditUserForm.get('role')?.invalid" type="submit">
+  <button style="margin: 4px" class="modal-primary-btn" (click)="saveUser()" [disabled]="addEditUserForm.get('first_name')?.invalid || addEditUserForm.get('last_name')?.invalid || addEditUserForm.get('email')?.invalid || addEditUserForm.get('role')?.invalid" type="submit">
     Save
   </button>
 </div>

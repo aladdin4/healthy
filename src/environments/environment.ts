@@ -1,5 +1,4 @@
 export const environment = {
-    production: true,
-    authBase: '#({_AuthBase_})#',
-    serviceBase: '#({_ServiceBase_})#'
-}
+  production: false,
+  serviceBase: 'https://food.sidigaber.org/api/',
+};

@@ -28,21 +28,21 @@
             <span *ngIf="cartItems > 0s" class="icon-indicator-number" style="right: 65.5px;">{{cartItems}}</span>
             <svg class=" w-100 svg-inline--fa fa-cart-shopping" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cart-shopping" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
           </a>
-          <div class="avatar avatar-l fs-5 fw-bold setting-btn" (click)="togglePanel(userSignOut)" *ngIf="user.id">
+          <div class="avatar avatar-l fs-5 fw-bold setting-btn" (click)="togglePanel(userSignOut)" *ngIf="user.role">
             {{user.initials}}
           </div>
-          <div class="avatar avatar-l fs-5 fw-bold setting-btn" (click)="togglePanel(userSignOut)" *ngIf="!user.id">
+          <div class="avatar avatar-l fs-5 fw-bold setting-btn" (click)="togglePanel(userSignOut)" *ngIf="!user.role">
             GU
           </div>
           <div class="navbar-collapsed-container user d-none"  (mouseleave)="hidePanel(userSignOut)" #userSignOut >
             <ul class="navbar-nav flex-column navbar-collapsed-ul">
-              <h6 class="nav-menu-label fw-bold user-title" *ngIf="user.id">
+              <h6 class="nav-menu-label fw-bold user-title" *ngIf="user.role">
                 {{user.fullName}}
               </h6>
-              <h6 class="nav-menu-label fw-bold user-title" *ngIf="!user.id">
+              <h6 class="nav-menu-label fw-bold user-title" *ngIf="!user.role">
                 Guest
               </h6>
-              <li class="settings-li px-3" [routerLink]="['/settings']" *ngIf="user.role == 'admin'">
+              <li class="settings-li px-3" [routerLink]="['/admin']" *ngIf="user.role == 'admin'">
                 <a class="nav-link" style="padding-left: 0px">
                   <div style="display: flex; align-items: stretch;">
                     <svg width="16px" height="16px"
@@ -51,7 +51,7 @@
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    <span class="fw-bold" style="color: #141824; padding-left: 10px">Users</span>
+                    <a class="fw-bold" style="color: #141824; padding-left: 10px">Users</a>
                   </div>
                 </a>
               </li>
@@ -99,14 +99,14 @@
               <!-- parent pages-->
               <div class="nav-item-wrapper">
                 <!--   -->
-                <a class="nav-link nav-link-header dropdown-indicator label-1" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home" (click)="toggleSettings()" routerLinkActive="active" [class.active]="isActive('settings')">
+                <a class="nav-link nav-link-header dropdown-indicator label-1" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home"routerLinkActive="active" >
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon">
                       <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </span><span class="nav-link-text nav-link-text-header">Sales Report</span>
                   </div>
                 </a>
-                <a class="nav-link nav-link-header dropdown-indicator label-1" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home" (click)="toggleSettings()" routerLinkActive="active" [class.active]="isActive('settings')" href='admin'>
+                <a class="nav-link nav-link-header dropdown-indicator label-1" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home" routerLinkActive="active" href='admin'>
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon">
                       <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>

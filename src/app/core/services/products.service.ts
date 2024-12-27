@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { groupBy, map, mergeMap, reduce, BehaviorSubject, concatAll } from 'rxjs';
 import { Router } from "@angular/router";
 import { Product, ProductCategory, getDummyProducts } from "../models/product";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -56,9 +57,21 @@ export class ProductsService {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
   getProducts() {
-    //this.http
-    //  .get<Product[]>(environment.serviceBase + '/api/Products')
-    //  .subscribe((data) => this.productsSubject.next(data));
-    this.productsSubject.next(getDummyProducts())
+    this.http
+      .get < { data: ProductCategory[]} >(environment.serviceBase + 'category?page=1')
+      .subscribe((data) => {
+        console.log(data)
+        console.log(getDummyProducts())
+        let productCategories = data.data;
+        productCategories.forEach(category => {
+          category.items.forEach(product => {
+            product.category = category.category;
+            product.img_url = "../../../assets/Creamy_Broccoli_Vegan_Pasta.jpg";
+            
+          });
+        });
+        this.productsSubject.next(productCategories)
+      });
+    //this.productsSubject.next(getDummyProducts())
   }
 }

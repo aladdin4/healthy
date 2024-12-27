@@ -22,7 +22,8 @@
                 <div>
                   <ng-container *ngFor="let user of users | filterPipe : filter; let last = last">
                     <ng-container>
-                      <div class="step-container" (click)="AddUser(user)" [ngClass]="{'last-child': last}">
+                      <!--(click)="AddUser(user)"-->
+                      <div class="step-container" [ngClass]="{'last-child': last}">
                         <span style="font-size: medium; font-weight: bolder; margin-left: 0.3rem;">{{user.fullName}}</span>
                         <div>
                           <span class="badge badge-phoenix badge-phoenix-success ms-2" style="margin-right: 0.2rem;">{{user.role}}</span>

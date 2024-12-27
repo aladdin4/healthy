@@ -43,8 +43,8 @@ export class AddEditUserDialog implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.user) {
       this.addEditUserForm.patchValue({
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
+        first_name: this.user.first_name,
+        last_name: this.user.last_name,
         email: this.user.email,
         role: this.user.role,
       });
@@ -59,8 +59,8 @@ export class AddEditUserDialog implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
   addEditUserForm = this.fb.group({
-    firstName: ["", [Validators.required]],
-    lastName: ["", [Validators.required]],
+    first_name: ["", [Validators.required]],
+    last_name: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
     role: ["", [Validators.required]],
     companyId: [0, [Validators.required]],
@@ -71,8 +71,8 @@ export class AddEditUserDialog implements OnInit, OnDestroy {
     let user: User = new Object() as User;
 
     user = { ...this.user }
-    user.firstName = this.addEditUserForm.get('firstName')?.value || this.user.firstName;
-    user.lastName = this.addEditUserForm.get('lastName')?.value || this.user.lastName;
+    user.first_name = this.addEditUserForm.get('first_name')?.value || this.user.first_name;
+    user.last_name = this.addEditUserForm.get('last_name')?.value || this.user.last_name;
     user.email = this.addEditUserForm.get('email')?.value || this.user.email;
     user.role = this.addEditUserForm.get('role')?.value || this.user.role;
 

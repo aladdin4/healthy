@@ -10,6 +10,8 @@ import { ProductsService } from '../../core/services/products.service';
 import { Product, ProductCategory } from '../../core/models/product';
 import { MainService } from '../../core/services/main.service';
 import { ToastrDisplayService } from '../../core/services/toastr.service';
+import { UsersService } from '../../core/services/users.service';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'app-products',
@@ -23,9 +25,11 @@ export class ProductsComponent {
     private mainService: MainService,
     private toasterDisplayService: ToastrDisplayService  ,
     private title: Title,
+    private usersService: UsersService
   ) { }
   productsSubscription: Subscription = new Subscription();
- 
+  usersSubscription: Subscription = new Subscription();
+  user: User = new User();
 
   products: ProductCategory[] = [];
  
@@ -41,7 +45,7 @@ export class ProductsComponent {
       this.activeCategory = this.categories[0];
     });
     this.productsService.getProducts();
-
+    this.getUser();
    
 
     this.title.setTitle('Healthy Products');
@@ -59,6 +63,19 @@ export class ProductsComponent {
   }
   ngOnDestroy(): void {
     this.productsSubscription.unsubscribe();
+    this.usersSubscription.unsubscribe();
+  }
+
+
+  getUser() {
+    this.usersService.getCurrentUser();
+    let userLocalStorage = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser') || "") : new User();
+    this.user = userLocalStorage;
+    if (!this.user.id) {
+      this.usersSubscription = this.usersService.currentUserSubject.subscribe((user) => {
+        this.user = user;
+      });
+    }
   }
 }
 
