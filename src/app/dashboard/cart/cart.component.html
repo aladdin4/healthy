@@ -104,7 +104,7 @@
                         <p class="text-body-emphasis fw-semibold">23th Main Street, London</p>
                       </div>
                       <button class="btn btn-primary-mod w-100" *ngIf="currentUser.role" (click)="checkOut()">Proceed to check out</button>
-                      <a class="btn btn-primary-mod w-100" *ngIf="!currentUser.role" href="login">Please sign in before Checking out</a>
+                      <a class="btn btn-primary-mod w-100" *ngIf="!currentUser.role" [routerLink]="['/login']" >Please sign in before Checking out</a>
                     </div>
                   </div>
                 </div>
