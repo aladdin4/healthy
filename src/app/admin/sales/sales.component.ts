@@ -13,8 +13,8 @@ import { ProductsService } from '../../core/services/products.service';
   styleUrls: ['./sales.component.css'],
 })
 export class SalesComponent {
- ordersSubscription: Subscription = new Subscription();
-  orders : any
+  ordersSubscription: Subscription = new Subscription();
+  orders: any
   constructor (
     private title: Title,
     private dialog: MatDialog,
@@ -24,7 +24,9 @@ export class SalesComponent {
 
     this.ordersSubscription = this.productsService.ordersSubject
       .subscribe((orders: any) => {
-        this.orders = orders;
+        if (orders.length) {
+          this.orders = orders.slice().reverse();
+        }
       });
     this.productsService.getOrders();
   }
@@ -32,7 +34,7 @@ export class SalesComponent {
   ngOnInit(): void {
     this.mainService.setNavbarVisible(true);
     this.title.setTitle('Sales Report');
-    
+
   }
 
   ngOnDestroy(): void {

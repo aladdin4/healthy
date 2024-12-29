@@ -17,7 +17,7 @@
             <div class="report">
 
               <div *ngFor="let order of orders">
-                <div class="p-3 m-3 border" style="border-width: 2px !important; border-color: #cccfd1 !important; border-radius: 10px;"  *ngIf="order.products.length > 0;">
+                <div class="p-3 m-3 border" style="border-width: 2px !important; border-color: #cccfd1 !important; border-radius: 10px; margin-top: 0px !important;"  *ngIf="order.products.length > 0;">
                     <span class="align-middle white-space-nowrap py-0 fw-bold fs-4" style=" background: transparent; color: #0d6efd; text-decoration: underline; display: inline-block; margin-bottom: 10px;">{{ order.order_date }}</span>
                     <table class="table fs-9 mb-0 border-top border-translucent">
                       <thead>
@@ -36,7 +36,6 @@
                           <td class="price align-middle text-body fs-9 fw-semibold" style=" background: transparent;">{{ product.product_ingredients }}</td>
                           <td class="total align-middle  text-body fs-9 fw-semibold" style=" background: transparent;">{{ product.price }}</td>
                           <td class="align-middle white-space-nowrap py-0" style=" background: transparent;">
-                            <!-- src="{{ item.image }}" -->
                             <img [src]="product.image" alt="{{ product.product_name }}" class="card-img-top" style=" height: 71px; width: 71px; padding: 0.5rem;">
                           </td>
                         </tr>

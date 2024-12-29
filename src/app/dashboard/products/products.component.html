@@ -52,9 +52,9 @@
                           </button>
                         </div>
                       </div>
-                      <p class="card-text">{{ product.product_nutrition_info }}</p>
+                      <p class="card-text limit-height" matTooltip="{{ product.product_nutrition_info }}">{{ product.product_nutrition_info }}</p>
                       <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Ingredients:</strong> {{ product.product_ingredients }}</li>
+                        <li class="list-group-item"  matTooltip="{{  product.product_ingredients }}"><strong>Ingredients:</strong> <p class=" limit-height">{{ product.product_ingredients }}</p> </li>
                         <li class="list-group-item" style="font-size: x-large; font-weight: 500"><strong>Price:</strong> ${{ product.price }}</li>
                       </ul>
                     </div>

@@ -36,7 +36,8 @@ export class LoginComponent {
       preferences: [""]
     }, { validators: this.confirmPasswordValidator('password', 'confirmPassword') });
   }
-  logoPath = "../assets/images/logo.png";
+  logoPath = "assets/logo.png";
+
   loggingIn: boolean = false;
   loggingInSubscription: Subscription = new Subscription();
   ngOnInit(): void {
