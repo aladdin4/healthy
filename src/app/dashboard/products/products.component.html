@@ -22,7 +22,7 @@
       </div>
       <div style=" display: flex; padding-left: 15px; justify-content: space-between;">
         <h3 class="main-title" style="margin-bottom: 1rem !important">{{ activeCategory }}</h3>
-        <button style="display: flex; margin: 4px; align-items: center; justify-content: space-between;" class="modal-secondary-btn " (click)="addNewProduct()">
+        <button style="display: flex; margin: 4px; align-items: center; justify-content: space-between;" class="modal-secondary-btn " (click)="addNewProduct()" *ngIf="user.role == 'admin'">
           <svg style="margin-right: 5px;" width=" 20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle text-900 fs-3"> <circle cx="12" cy="12" r="10"></circle> <line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line> </svg>
           Add New Product
         </button>
