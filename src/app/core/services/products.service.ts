@@ -188,7 +188,7 @@ export class ProductsService {
       ,
         () => {
           this.toasterDisplayService.showSuccess('Order Placed Successfully');
-          this.router.navigate(['/products']);
+          this.router.navigate(['/dashboard/products']);
           this.cartSubject.next([]);
           this.saveCartToLocalStorage();
         }

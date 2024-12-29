@@ -53,7 +53,7 @@ export class UsersService {
         else {
           this.toasterDisplayService.showSuccess("Login successful");
          // reroute to home
-          this.router.navigate(['/products']);
+          this.router.navigate(['/dashboard/products']);
         }
       },
         err => {

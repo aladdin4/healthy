@@ -76,7 +76,7 @@ export class CartComponent {
   }
   checkOut() {
     //call checkout EP here from userId + cart
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['/dashboard/checkout']);
   }
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
