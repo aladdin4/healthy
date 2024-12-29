@@ -10,7 +10,7 @@ const routes: Routes = [
     component: AdminComponent,
                   
     children: [
-      {
+      {                                         
         path: '',
         redirectTo: 'users',
         pathMatch: 'full'
@@ -18,7 +18,7 @@ const routes: Routes = [
       {
         path: 'sales',
         component: SalesComponent,
-      }    ,
+      },
       {
         path: 'users',
         component: UsersComponent,
