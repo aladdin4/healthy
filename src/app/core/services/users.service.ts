@@ -147,19 +147,21 @@ export class UsersService {
     else {
       this.http
         .post<{ data: any }>(environment.serviceBase + 'signup', user)
-        .subscribe((data) => {
-                        console.log(data)
-          this.getUsers();
-        },
-          err => {
+
+        .subscribe({
+          next: (response: any) => {
+            this.getUsers();
+          },
+          complete: () => {
+            this.router.navigate(['/login'])
+            this.toasterDisplayService.showSuccess('User Created Successfully, Please Login With Your New Credentials');
+          },
+          error: (err) => {
             let errMsg = err.error.data.email[0];
             this.toasterDisplayService.showError({ error: errMsg });
-          });
+          }
+        })
     }
-    
-
-    console.log(user)
-    
   }
 
   deleteUser(user: any) {
