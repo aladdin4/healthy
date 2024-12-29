@@ -11,13 +11,16 @@ import { dashboardRouterModule } from './dashboard.router.module';
 import { ProductsComponent } from './products/products.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CartComponent } from './cart/cart.component';
+import { AddEditProductDialog } from './products/add-edit-product-dialog/add-edit-product.dialog';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CheckoutComponent,
     CartComponent,
-    ProductsComponent
+    ProductsComponent,
+    AddEditProductDialog
+
 
   ],
   imports: [MaterialModule, ReactiveFormsModule, CommonModule, dashboardRouterModule, AccordionModule.forRoot(), FormsModule, SharedModule, MatDatepickerModule, MatNativeDateModule],

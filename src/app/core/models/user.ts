@@ -3,23 +3,25 @@ export class User {
   role: string;
   first_name: string;
   last_name: string;
-  id: number;
-  fullName: string;
-  initials: string = "";
+  id: string;
   customer_address: string;
   customer_phone: string;
-  customer_prefrences: string;
-  token: string;
+  password: string;
+  customer_prefrences?: string;
+  fullName?: string;
+  initials?: string = "";
+  token?: string;
   constructor (
     email: string ="",
     role: string = "",
     first_name: string = "",
     last_name: string = "",
-    id: number = 0,
+    id: string = "",
     customer_address: string = "",
     customer_phone: string = "",
     customer_prefrences: string = "",
-    token: string = ""
+    token: string = "",
+    password: string = ""
   ) {
 
     this.email = email;
@@ -35,7 +37,7 @@ export class User {
     this.customer_phone = customer_phone;
     this.customer_prefrences = customer_prefrences;
     this.token = token;
-
+    this.password = password;
   }
 }
 

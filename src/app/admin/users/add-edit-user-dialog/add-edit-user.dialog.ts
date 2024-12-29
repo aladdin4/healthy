@@ -35,8 +35,6 @@ export class AddEditUserDialog implements OnInit, OnDestroy {
     this.currentUser = data.currentUser;
     if (this.user.id) {
       this.userState = "Edit User";
-      this.addEditUserForm.get('email')?.disable();
-     
     }
   }
 
@@ -63,19 +61,21 @@ export class AddEditUserDialog implements OnInit, OnDestroy {
     last_name: ["", [Validators.required]],
     email: ["", [Validators.required, Validators.email]],
     role: ["", [Validators.required]],
-    companyId: [0, [Validators.required]],
+    password: ["", [Validators.required]],
   });
 
   saveUser() {
 
     let user: User = new Object() as User;
 
-    user = { ...this.user }
+    user = { ...this.user };
     user.first_name = this.addEditUserForm.get('first_name')?.value || this.user.first_name;
     user.last_name = this.addEditUserForm.get('last_name')?.value || this.user.last_name;
     user.email = this.addEditUserForm.get('email')?.value || this.user.email;
     user.role = this.addEditUserForm.get('role')?.value || this.user.role;
+    user.password = this.addEditUserForm.get('password')?.value || this.user.password;
 
+    this.userService.createNewUser(user);
    // this.userService.saveUser(user);
     this.dialogRef.close();
   }
@@ -88,7 +88,7 @@ export class AddEditUserDialog implements OnInit, OnDestroy {
 
       }).afterClosed().subscribe(result => {
         if (result) {
-         // this.userService.deleteUser(this.user);
+          this.userService.deleteUser(this.user);
           this.dialogRef.close();
         }
       })

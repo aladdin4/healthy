@@ -11,12 +11,14 @@ import { AdminComponent } from './admin.component';
 import { adminRouterModule } from './admin.router.module';
 import { FilterPipe } from '../shared/pipes/filter-pipe/filter.pipe';
 import { AddEditUserDialog } from './users/add-edit-user-dialog/add-edit-user.dialog';
+import { SalesComponent } from './sales/sales.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     AddEditUserDialog,
-    UsersComponent
+    UsersComponent,
+    SalesComponent
   ],
   imports: [
     MaterialModule,

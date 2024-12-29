@@ -31,8 +31,9 @@ export class LoginComponent {
       lastName: [""],
       phoneNumber: [""],
       address: [""],
-      role: [""],
-      confirmPassword: [""]
+      role: ["customer"],
+      confirmPassword: [""],
+      preferences: [""]
     }, { validators: this.confirmPasswordValidator('password', 'confirmPassword') });
   }
   logoPath = "../assets/images/logo.png";
@@ -52,13 +53,15 @@ export class LoginComponent {
   }
   signUp() {
     this.usersService.createNewUser({
-      firstName: this.logInForm.value.firstName || "",
-      lastName: this.logInForm.value.lastName || "",
-      phoneNumber: this.logInForm.value.phoneNumber || "",
+      first_name: this.logInForm.value.firstName || "",
+      last_name: this.logInForm.value.lastName || "",
+      phone: this.logInForm.value.phoneNumber || "",
       address: this.logInForm.value.address || "",
-      role: this.logInForm.value.role || "",
+      role: this.logInForm.value.role || "customer",
       email: this.logInForm.value.email || "",
-      password: this.logInForm.value.password || ""
+      password: this.logInForm.value.password || "",
+      customer_prefrences: this.logInForm.value.preferences || "",
+      id: 0
     })
   }
 

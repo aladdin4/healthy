@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,6 +12,8 @@ import { MainService } from '../../core/services/main.service';
 import { ToastrDisplayService } from '../../core/services/toastr.service';
 import { UsersService } from '../../core/services/users.service';
 import { User } from '../../core/models/user';
+import { DeleteConfirmationDialog } from '../../shared/modals/delete-confirmation-dialog/delete-confirmation.dialog';
+import { AddEditProductDialog } from './add-edit-product-dialog/add-edit-product.dialog';
 
 @Component({
   selector: 'app-products',
@@ -46,7 +48,8 @@ export class ProductsComponent {
     });
     this.productsService.getProducts();
     this.getUser();
-   
+
+    this.productsService.getCategories();
 
     this.title.setTitle('Healthy Products');
   }
@@ -76,6 +79,35 @@ export class ProductsComponent {
         this.user = user;
       });
     }
+  }
+
+ 
+  deleteProduct(product: Product) {
+    const dialogRef =
+      this.dialog.open(DeleteConfirmationDialog, {
+        data: { title: 'Delete Product', message: 'Are you sure you want to delete this product?' },
+        position: { top: '6rem' },
+        width: '600px',
+
+      }).afterClosed().subscribe(result => {
+        if (result)
+        this.productsService.deleteProduct(product);
+      })
+  }
+  editProduct(element: any) {
+    const dialogRef = this.dialog.open(AddEditProductDialog, {
+      data: element ? element : 0,
+      position: { top: '6rem' },
+      width: '600px',
+    });
+  }
+
+  addNewProduct() {
+    const dialogRef = this.dialog.open(AddEditProductDialog, {
+      data: 0,
+      position: { top: '6rem' },
+      width: '600px',
+    });
   }
 }
 

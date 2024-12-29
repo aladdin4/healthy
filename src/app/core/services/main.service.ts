@@ -18,7 +18,6 @@ export class MainService {
   }
 
   setNavbarVisible(visible: boolean) {
-    console.log(environment.serviceBase)
     this.isVisible = visible;
     this.NavbarVisibleSubject.next(this.isVisible);
   }

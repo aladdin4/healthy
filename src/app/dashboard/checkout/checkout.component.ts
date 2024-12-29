@@ -12,6 +12,7 @@ import { MainService } from '../../core/services/main.service';
 import { ToastrDisplayService } from '../../core/services/toastr.service';
 import { UsersService } from '../../core/services/users.service';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
-
+  expectedDeliveryDate: string = '';
   constructor (public dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer,
     private productsService: ProductsService,
@@ -27,8 +28,9 @@ export class CheckoutComponent {
     private toasterDisplayService: ToastrDisplayService,
     private usersService: UsersService,
     private title: Title,
-    private router: Router
-  ) { }
+    private router: Router,
+   
+  ) {}
   cartSubscription: Subscription = new Subscription();
   userSubscription: Subscription = new Subscription();
 
@@ -43,6 +45,7 @@ export class CheckoutComponent {
 
   categories: string[] = [];
   activeCategory: string = '';
+
   ngOnInit(): void {
 
     this.mainService.setNavbarVisible(false);
@@ -52,10 +55,9 @@ export class CheckoutComponent {
     });
     this.usersService.getCurrentUser()
     this.userSubscription = this.usersService.currentUserSubject.subscribe((user) => {
-      console.log('the subject user', user)
       this.currentUser = user;
     });
-
+    this.setExpectedDeliveryDate();
     this.title.setTitle('Healthy Cart');
   }
 
@@ -75,12 +77,16 @@ export class CheckoutComponent {
       this.total = this.subtotal + this.shippingCost;
   }
   checkOut() {
-    //call checkout EP here from userId + cart
-    console.log('checkout', this.cartItems, this.currentUser.id);
-    this.router.navigate(['/checkout']);
+    this.productsService.createNewOrder();
   }
   ngOnDestroy(): void {
     this.cartSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
+  }
+  setExpectedDeliveryDate(): void {
+    const today = new Date();
+    const deliveryDate = new Date(today.setDate(today.getDate() + 3));
+    this.expectedDeliveryDate = deliveryDate.toISOString().split('T')[0];
+   
   }
 }

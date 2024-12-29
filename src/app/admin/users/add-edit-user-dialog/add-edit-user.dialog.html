@@ -26,11 +26,17 @@
         Please Enter Valid Email
       </mat-error>
     </div>
-
+    <div class="mb-3">
+      <label class="form-label" for="password">Password* </label>
+      <input class="form-control" type="password" formControlName="password" placeholder="Enter User's Password" />
+      <mat-error *ngIf="addEditUserForm.get('password')?.invalid && addEditUserForm.get('password')?.touched">
+        Please Enter Valid Email
+      </mat-error>
+    </div>
     <div class="mb-3">
       <label class="form-label" for="role">User role* </label>
       <ng-select [clearable]="false" formControlName="role" placeholder="Select User Role" style="border-color: #dee2e6">
-        <ng-option *ngFor="let role of roleNames" [value]="role">{{role}}</ng-option>
+        <ng-option [value]="'admin'">Admin</ng-option>
       </ng-select>
       <mat-error *ngIf="addEditUserForm.get('role')?.invalid && addEditUserForm.get('role')?.touched">
         Please Select Valid Role

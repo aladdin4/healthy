@@ -6,7 +6,7 @@ export interface Product {
   created_at: string;
   price: number;
   category: string;
-  img_url?: string;
+  image?: string;
   quantity?: number;
 }
 
@@ -26,7 +26,7 @@ const dummyProducts: ProductCategory[] = [
         created_at: "16/12/2024",
         price: 2.99,
         category: 'Keto Food',
-        img_url: "../../../assets/cauliflower.png"
+        image: "../../../assets/cauliflower.png"
       },
       {
         product_code: 2,
@@ -36,7 +36,7 @@ const dummyProducts: ProductCategory[] = [
         created_at: "16/12/2024",
         price: 12.99,
         category: 'Keto Food',
-        img_url: "../../../assets/philly-cheesesteak-lettuce-wraps.png"
+        image: "../../../assets/philly-cheesesteak-lettuce-wraps.png"
       },
     ]
   },
@@ -51,7 +51,7 @@ const dummyProducts: ProductCategory[] = [
         created_at: "16/12/2024",
         price: 5.99,
         category: 'Smoothie',
-        img_url: "../../../assets/Tropical_OatmealSmoothie.png"
+        image: "../../../assets/Tropical_OatmealSmoothie.png"
       },
       {
         product_code: 4,
@@ -61,7 +61,7 @@ const dummyProducts: ProductCategory[] = [
         created_at: "16/12/2024",
         price: 7.99,
         category: 'Smoothie',
-        img_url: "../../../assets/Cherry_Almond_Smoothie.png"
+        image: "../../../assets/Cherry_Almond_Smoothie.png"
       }]
   },
   {
@@ -75,7 +75,7 @@ const dummyProducts: ProductCategory[] = [
         created_at: "16/12/2024",
         price: 12.99,
         category: 'Vegan',
-        img_url: "../../../assets/Creamy_Broccoli_Vegan_Pasta.jpg"
+        image: "../../../assets/Creamy_Broccoli_Vegan_Pasta.jpg"
       },
       {
         product_code: 6,
@@ -85,7 +85,7 @@ const dummyProducts: ProductCategory[] = [
         created_at: "16/12/2024",
         price: 9.99,
         category: 'Vegan',
-        img_url: "../../../assets/Butternut_Squash_Stuffed_Shells.jpg"
+        image: "../../../assets/Butternut_Squash_Stuffed_Shells.jpg"
       }
     ]
   }

@@ -53,7 +53,6 @@ export class CartComponent {
     });
     this.usersService.getCurrentUser()
     this.userSubscription = this.usersService.currentUserSubject.subscribe((user) => {
-      console.log('the subject user', user)
       this.currentUser = user;
     });
     
@@ -77,7 +76,6 @@ export class CartComponent {
   }
   checkOut() {
     //call checkout EP here from userId + cart
-    console.log('checkout', this.cartItems, this.currentUser.id);
     this.router.navigate(['/checkout']);
   }
   ngOnDestroy(): void {

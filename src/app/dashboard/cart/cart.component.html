@@ -35,7 +35,7 @@
                     <tbody class="list" id="cart-table-body">
                       <tr class="cart-table-row btn-reveal-trigger" *ngFor="let item of cartItems">
                         <td class="align-middle white-space-nowrap py-0" style=" background: transparent;">
-                          <img src="{{ item.img_url }}" class="card-img-top" alt="{{ item.product_name }}" style=" height: 71px; width: 71px; padding: 0.5rem;">
+                          <img src="{{ item.image }}" class="card-img-top" alt="{{ item.product_name }}" style=" height: 71px; width: 71px; padding: 0.5rem;">
                         </td>
                         <td class="align-middle white-space-nowrap py-0" style=" background: transparent; color: #0d6efd; text-decoration: underline">{{ item.product_name }}</td>
                         <td class="size align-middle white-space-nowrap  fs-9 fw-semibold" style=" background: transparent;">{{ item.category }}</td>
@@ -103,8 +103,8 @@
                         <p class="text-body fw-semibold">Delivery Address:</p>
                         <p class="text-body-emphasis fw-semibold">23th Main Street, London</p>
                       </div>
-                      <button class="btn btn-primary-mod w-100" *ngIf="currentUser.id" (click)="checkOut()">Proceed to check out</button>
-                      <a class="btn btn-primary-mod w-100" *ngIf="!currentUser.id" href="login">Please sign in before Checking out</a>
+                      <button class="btn btn-primary-mod w-100" *ngIf="currentUser.role" (click)="checkOut()">Proceed to check out</button>
+                      <a class="btn btn-primary-mod w-100" *ngIf="!currentUser.role" href="login">Please sign in before Checking out</a>
                     </div>
                   </div>
                 </div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { AdminComponent } from './admin.component';
+import { SalesComponent } from './sales/sales.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
         redirectTo: 'users',
         pathMatch: 'full'
       },
+      {
+        path: 'sales',
+        component: SalesComponent,
+      }    ,
       {
         path: 'users',
         component: UsersComponent,

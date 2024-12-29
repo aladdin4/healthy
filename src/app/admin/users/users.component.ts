@@ -13,7 +13,7 @@ import { MainService } from '../../core/services/main.service';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent {
-  
+
   constructor (
     private title: Title,
     private userService: UsersService,
@@ -34,10 +34,11 @@ export class UsersComponent {
 
   ngOnInit(): void {
     this.userService.getUsers();
-    this.usersSubscription = this.userService.usersSubject.subscribe((data: User[]) => {
-      this.users = data;
-     
-    });
+    this.usersSubscription = this.userService.usersSubject
+      .subscribe((data: User[]) => {
+        this.users = data;
+
+      });
 
     this.mainService.setNavbarVisible(true);
     this.title.setTitle('Users');
@@ -49,7 +50,7 @@ export class UsersComponent {
   }
 
 
-  AddUser(element: any) {
+  AddUser(element: any = null) {
     let newUser = new Object() as User;
     const dialogRef = this.dialog.open(AddEditUserDialog, {
       data: { user: element ? element : newUser, currentUser: this.currentUser },

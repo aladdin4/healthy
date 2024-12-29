@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { User } from "../models/user";
 import { Router } from "@angular/router";
 import { ToastrDisplayService } from "./toastr.service";
@@ -25,25 +25,28 @@ export class UsersService {
     this.http
       .post<{ data: User  }>(environment.serviceBase + 'login', { email, password })
       .subscribe((data) => {
-                        let rawUser = data.data
-        let user = new User(
-          rawUser.email,
-          rawUser.role,
-          rawUser.first_name,
-          rawUser.last_name,
-          rawUser.id,
-          rawUser.customer_address,
-          rawUser.customer_prefrences,
-          rawUser.customer_phone,
-          rawUser.token,
-        );
+        let rawUser = data.data
+        let user = new User();
 
-          console.log('raw user', rawUser)
-        console.log('user', user)
+        user.email = rawUser.email;
+        user.role = rawUser.role;
+        user.first_name = rawUser.first_name;
+        user.last_name = rawUser.last_name;
+        user.id = rawUser.id;
+        user.customer_address = rawUser.customer_address;
+        user.customer_phone = rawUser.customer_phone;
+        user.customer_prefrences = rawUser.customer_prefrences;
+        user.token = rawUser.token;
+        user.password = rawUser.password;
+
+        user.fullName = `${user.first_name} ${user.last_name}`;
+        if (user.first_name && user.last_name) {
+          user.initials = `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`;
+        };
+
 
         this.currentUserSubject.next(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
-        console.log(user);
         if (!user.role) {
           this.toasterDisplayService.showError({ error: "User Not Found" });
         }
@@ -80,13 +83,12 @@ export class UsersService {
     let userLocalStorage = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser') || "") : new User();
     this.currentUserSubject.next(userLocalStorage);
 
-    console.log('userLocalStorage', userLocalStorage)
   }                     
 
   dummyUserList: User[] = [
-    new User("ahmed@healthy.com", "admin", "Ahmed", "Aladdin", 1, "23th Main Street, London"),
-    new User("mohammed@gmail.com", "user", "Mohammed", "Ibrahim", 2, "23th Main Street, London"),
-    new User("saber@gmail.com", "user", "Saber", "Osman", 3, "23th Main Street, London"),
+    new User("ahmed@healthy.com", "admin", "Ahmed", "Aladdin", '1', "23th Main Street, London"),
+    new User("mohammed@gmail.com", "user", "Mohammed", "Ibrahim", '2', "23th Main Street, London"),
+    new User("saber@gmail.com", "user", "Saber", "Osman", '3', "23th Main Street, London"),
   ]
 
   getUsers() {
@@ -98,7 +100,6 @@ export class UsersService {
     this.http
       .get<{ data: User[] }>(environment.serviceBase + 'users', { headers })
       .subscribe((response) => {
-        console.log('data', response.data);
         response.data.forEach(user => {
           user.fullName = `${user.first_name} ${user.last_name}`;
         });
@@ -109,36 +110,74 @@ export class UsersService {
   }
 
   createNewUser(user: any) {
-    this.http
-      .post<{ data: User }>(environment.serviceBase + 'users/create', {
-        email: user.email,
-        password: user.password,
-        first_name: user.firstName,
-        last_name: user.lastName,
-        role: user.role,
-        customer_address: user.address,
-        customer_phone  : user.phone
 
-      })
-      .subscribe((data) => {
-        
-        console.log('data', data)
+    const currentUserString = localStorage.getItem('currentUser');
+    const currentUser = currentUserString ? JSON.parse(currentUserString) : null
+    if (currentUser) {
+      let token = currentUser.token;
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-        //this.currentUserSubject.next(user);
-        //localStorage.setItem('currentUser', JSON.stringify(user));
-        //console.log(user);
-        //if (!user.role) {
-        //  this.toasterDisplayService.showError({ error: "User Not Found" });
-        //}
-        //else {
-        //  this.toasterDisplayService.showSuccess("Login successful");
-        //  // reroute to home
-        //  this.router.navigate(['/products']);
-        //}
-      },
-        err => {
-          let errMsg = err.error.data.email[0];
-          this.toasterDisplayService.showError({ error: errMsg });
-        });
+      if (user.id) {
+        const url = environment.serviceBase + `users/${user.id}`;
+        this.http
+          .put<{ data: any }>(url, user, { headers })
+          .subscribe((data) => {
+            this.getUsers();
+            this.toasterDisplayService.showSuccess('User Updated Successfully');
+          },
+            err => {
+              let errMsg = err.error.data.email[0];
+              this.toasterDisplayService.showError({ error: errMsg });
+            });
+      }
+      else {
+        this.http
+          .post<{ data: any }>(environment.serviceBase + 'users/create', user, { headers })
+          .subscribe((data) => {
+            this.toasterDisplayService.showSuccess('User Created Successfully');
+
+            this.getUsers();
+          },
+            err => {
+              let errMsg = err.error.data.email[0];
+              this.toasterDisplayService.showError({ error: errMsg });
+            });
+      }
+    }
+    else {
+      this.http
+        .post<{ data: any }>(environment.serviceBase + 'signup', user)
+        .subscribe((data) => {
+                        console.log(data)
+          this.getUsers();
+        },
+          err => {
+            let errMsg = err.error.data.email[0];
+            this.toasterDisplayService.showError({ error: errMsg });
+          });
+    }
+    
+
+    console.log(user)
+    
+  }
+
+  deleteUser(user: any) {
+    const currentUserString = localStorage.getItem('currentUser');
+    const currentUser = currentUserString ? JSON.parse(currentUserString) : null
+    if (currentUser) {
+      let token = currentUser.token;
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      this.http
+        .delete<{ data: any }>(environment.serviceBase + `users/${user.id}`, { headers })
+        .subscribe((data) => {
+          this.getUsers();
+          this.toasterDisplayService.showSuccess('User Deleted Successfully');
+        },
+          err => {
+            let errMsg = err.error.data.email[0];
+            this.toasterDisplayService.showError({ error: errMsg });
+          });
+    }
   }
 }
